@@ -22,6 +22,12 @@ jobs:
       run: |
         echo "sdk.dir=/usr/local/lib/android/sdk" > local.properties
 
+    - name: Install Android SDK components and accept licenses
+      run: |
+        export ANDROID_HOME=/usr/local/lib/android/sdk
+        yes | $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --licenses || true
+        yes | $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager "platform-tools" "platforms;android-33" "build-tools;33.0.1"
+
     - name: Download and Setup Gradle 8.5
       run: |
         wget https://services.gradle.org/distributions/gradle-8.5-bin.zip
